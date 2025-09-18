@@ -264,6 +264,64 @@ body {
 
 
 
+// About Section
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .about-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: $light-text;
+
+    p {
+      margin-bottom: 30px;
+      text-transform: capitalize;
+    }
+  }
+
+  .social-icons {
+    display: flex;
+    gap: 15px;
+
+    .social-icon {
+      width: 50px;
+      height: 50px;
+      @include flex-center;
+      background: $primary-color;
+      color: $white;
+      border-radius: 50%;
+      text-decoration: none;
+      font-size: 1.2rem;
+      @include transition();
+
+      &:hover {
+        transform: translateY(-3px);
+        background: $secondary-color;
+      }
+    }
+  }
+
+  .about-video {
+    @include flex-center;
+
+    video {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+
 
 // Modal Styles
 .modal {
