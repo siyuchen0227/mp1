@@ -1,7 +1,20 @@
 /* Your JS here. */
+
+let currentSlide = 0;
+const slides = document.querySelectorAll('.carousel-slide');
+let isScrolling = false;
+
+
 document.addEventListener('DOMContentLoaded', function() {
     initializeMobileMenu();
     initializeModals();
+    initializeCarousel();
+
+
+     // Initialize first slide
+    if (slides.length > 0) {
+        slides[0].classList.add('active');
+    }
 
    
 })
@@ -94,11 +107,41 @@ function initializeModals() {
 }
 
 
+// Carousel Functionality
+function initializeCarousel() {
+    // Auto-play carousel
+    setInterval(function() {
+        changeSlide(1);
+    }, 5000);
+}
+
+// Change carousel slide
+function changeSlide(direction) {
+    if (slides.length === 0) return;
+    
+    // Remove active class from current slide
+    slides[currentSlide].classList.remove('active');
+    
+    // Calculate next slide index
+    currentSlide += direction;
+    
+    // Handle wrap-around
+    if (currentSlide >= slides.length) {
+        currentSlide = 0;
+    } else if (currentSlide < 0) {
+        currentSlide = slides.length - 1;
+    }
+    
+    // Add active class to new slide
+    slides[currentSlide].classList.add('active');
+}
+
 
 
 // 在文件末尾添加
 window.openModal = openModal;
 window.closeModal = closeModal;
 window.closeAllModals = closeAllModals;
+window.changeSlide = changeSlide;
 
 
