@@ -32,6 +32,48 @@
         </ul>
       </div>
     </nav>
+
+
+
+       <!-- Home Section with Video Background -->
+    <section id="home" class="hero-section">
+      <div class="video-background">
+        <video autoplay muted loop playsinline>
+          <source src="https://cdn.pixabay.com/video/2022/11/16/139287-772291121_large.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-title">Urban Explorer</h1>
+        <p class="hero-subtitle">
+          Capturing the hidden stories of city landscapes
+        </p>
+        <button class="cta-button" onclick="openModal('aboutModal')">
+          Discover My Journey
+        </button>
+      </div>
+    </section>
+
+        <!-- Modal for About -->
+    <div id="aboutModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('aboutModal')">&times;</span>
+        <h2>My Photography Journey</h2>
+        <p>
+          My urban exploration journey began 7 years ago when I first stepped
+          into an abandoned subway station in Berlin. That moment sparked my
+          passion for documenting the forgotten corners of our cities and the
+          stories they hold.
+        </p>
+        <p>
+          I specialize in urban exploration, architectural photography, and
+          street documentation. My approach combines respect for historical
+          preservation with artistic vision, creating images that honor both the
+          past and present of urban spaces.
+        </p>
+      </div>
+    </div>
        
     </body>
 </html>
