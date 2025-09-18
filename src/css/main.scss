@@ -656,6 +656,169 @@ body {
   }
 }
 
+// References Section Styles - Simplified
+.references-section {
+  background: $light-bg;
+  padding: 40px 0;
+  border-top: 2px solid $primary-color;
+  .references-content {
+    background: $white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+
+    h3 {
+      color: $text-color;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      @include flex-center;
+      gap: 10px;
+
+      i {
+        color: $primary-color;
+      }
+    }
+
+    p {
+      margin-bottom: 12px;
+      line-height: 1.6;
+      color: $light-text;
+      text-align: left;
+      a {
+        color: $primary-color;
+        text-decoration: none;
+        font-weight: 600;
+        @include transition(color);
+
+        &:hover {
+          color: $secondary-color;
+          text-decoration: underline;
+        }
+      }
+    }
+
+    strong {
+      color: $text-color;
+      font-weight: 600;
+    }
+
+    // Feature Category Styling
+    .feature-category {
+      margin-bottom: 25px;
+      padding: 20px;
+      background: $light-bg;
+      border-radius: 8px;
+      //   border-left: 4px solid $primary-color;
+
+      h5 {
+        color: $text-color;
+        font-size: 1rem;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+
+        i {
+          color: $primary-color;
+          font-size: 0.9rem;
+          width: 16px;
+          text-align: center;
+        }
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      li {
+        margin-bottom: 8px;
+        padding: 6px 0;
+        border-bottom: 1px solid #e9ecef;
+        font-size: 0.9rem;
+        text-align: left;
+
+        &:last-child {
+          border-bottom: none;
+          margin-bottom: 0;
+        }
+
+        &::before {
+          content: "🔗";
+          margin-right: 6px;
+          font-size: 0.8rem;
+        }
+      }
+
+      a {
+        color: $primary-color;
+        text-decoration: none;
+        font-weight: 600;
+        @include transition(color);
+
+        &:hover {
+          color: $secondary-color;
+          text-decoration: underline;
+        }
+      }
+      .reference-links {
+        margin: 20px 0;
+        text-align: left;
+
+        h4 {
+          color: $text-color;
+          font-size: 1.1rem;
+          margin-bottom: 15px;
+          @include flex-center;
+          gap: 8px;
+
+          i {
+            color: $primary-color;
+          }
+        }
+
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: 0 auto;
+        }
+
+        li {
+          margin-bottom: 10px;
+          padding: 8px 0;
+          border-bottom: 1px solid #eee;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          &::before {
+            content: "📚";
+            margin-right: 8px;
+          }
+        }
+
+        a {
+          color: $primary-color;
+          text-decoration: none;
+          font-weight: 600;
+          @include transition(color);
+
+          &:hover {
+            color: $secondary-color;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
 // Modal Styles
 .modal {
   display: none;
