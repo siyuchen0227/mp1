@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeMobileMenu();
     initializeModals();
     initializeCarousel();
-
+ initializeSmoothScrolling();
 
      // Initialize first slide
     if (slides.length > 0) {
@@ -136,7 +136,120 @@ function changeSlide(direction) {
     slides[currentSlide].classList.add('active');
 }
 
+// Keyboard Navigation for Carousel
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowLeft') {
+        changeSlide(-1);
+    } else if (event.key === 'ArrowRight') {
+        changeSlide(1);
+    }
+});
 
+
+// Simple scroll handling - easier to understand
+window.addEventListener('scroll', function() {
+    const navbar = document.getElementById('navbar');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section');
+    
+    // Handle navbar resizing
+    handleNavbarScroll(navbar);
+    
+    // Update active navigation link
+    updateActiveNavLink(navLinks, sections);
+});
+
+// Contact Form Handling
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const name = this.querySelector('input[type="text"]').value;
+            const email = this.querySelector('input[type="email"]').value;
+            const message = this.querySelector('textarea').value;
+            
+            // Simple validation
+            if (name && email && message) {
+                alert('Thank you for your message! I will get back to you soon.');
+                this.reset();
+                closeModal('contactModal');
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+    }
+});
+
+
+
+// Handle navbar resizing and styling on scroll
+function handleNavbarScroll(navbar) {
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+}
+
+// Position Indicator - Update active nav link based on scroll position
+function updateActiveNavLink(navLinks, sections) {
+    const scrollPosition = window.scrollY + 100; // Offset for navbar height
+    
+    // Remove active class from all links
+    navLinks.forEach(link => link.classList.remove('active'));
+    
+    // Find current section
+    let currentSection = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            currentSection = section.getAttribute('id');
+        }
+    });
+    
+    // Handle edge case for bottom of page
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
+        currentSection = sections[sections.length - 1].getAttribute('id');
+    }
+    
+    // Add active class to current section's nav link
+    if (currentSection) {
+        const activeLink = document.querySelector(`a[href="#${currentSection}"]`);
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
+    }
+}
+
+// Smooth Scrolling for Navigation Links
+function initializeSmoothScrolling() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                const navbarHeight = document.getElementById('navbar').offsetHeight;
+                const targetPosition = targetSection.offsetTop - navbarHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
 
 
 // Portfolio Modal Functionality
