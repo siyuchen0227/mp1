@@ -138,7 +138,136 @@ function changeSlide(direction) {
 
 
 
-// 在文件末尾添加
+
+// Portfolio Modal Functionality
+ document.addEventListener('DOMContentLoaded', function() {
+            // get all portfolio cards and modal elements
+            const portfolioCards = document.querySelectorAll('.portfolio_list-card');
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const captionText = document.getElementById('imageCaption');
+            const closeModal = document.getElementById('closeModal');
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            
+            let currentImageIndex = 0;
+            const images = [];
+            
+            // get all portfolio cards and modal elements
+            portfolioCards.forEach((card, index) => {
+                const img = card.querySelector('img');
+                images.push({
+                    src: img.src,
+                    alt: img.alt
+                });
+                
+                // add click event to each card
+
+                card.addEventListener('click', () => {
+                    openModal(index);
+                });
+            });
+            
+            // open modal
+
+            function openModal(index) {
+                currentImageIndex = index;
+                updateModalContent();
+                modal.style.display = 'block';
+                
+                // add active class to trigger animation
+                setTimeout(() => {
+                    modal.classList.add('active');
+                }, 10);
+                
+                // disable page scroll when modal is open
+                document.body.style.overflow = 'hidden';
+            }
+            
+            // close modal
+            function closeModalFunc() {
+                modal.classList.remove('active');
+                
+                // wait for animation to complete before hiding modal
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 300);
+            }
+            
+            // update modal content
+            function updateModalContent() {
+                const currentImage = images[currentImageIndex];
+                modalImage.src = currentImage.src;
+                captionText.innerHTML = currentImage.alt;
+            }
+            
+            // switch to next image
+            
+            function nextImage() {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                updateModalContent();
+            }
+            
+            //  switch to previous image
+            function prevImage() {
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                updateModalContent();
+            }
+            
+            // event listeners
+            closeModal.addEventListener('click', closeModalFunc);
+            nextButton.addEventListener('click', nextImage);
+            prevButton.addEventListener('click', prevImage);
+            
+            // click outside modal content to close 
+            
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModalFunc();
+                }
+            });
+            
+            // keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (modal.style.display === 'block') {
+                    if (e.key === 'Escape') {
+                        closeModalFunc();
+                    } else if (e.key === 'ArrowRight') {
+                        nextImage();
+                    } else if (e.key === 'ArrowLeft') {
+                        prevImage();
+                    }
+                }
+            });
+            
+            // touch swipe support (mobile devices)
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            modal.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            modal.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const minSwipeDistance = 50;
+                
+                if (touchEndX < touchStartX && touchStartX - touchEndX > minSwipeDistance) {
+                    nextImage();
+                }
+                
+                if (touchEndX > touchStartX && touchEndX - touchStartX > minSwipeDistance) {
+                    prevImage();
+                }
+            }
+        });
+
+// Expose functions to global scope for inline HTML usage
 window.openModal = openModal;
 window.closeModal = closeModal;
 window.closeAllModals = closeAllModals;
