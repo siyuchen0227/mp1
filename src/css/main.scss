@@ -1,1 +1,256 @@
 /* Your SCSS here. */
+// SCSS Variables
+$primary-color: #4a90e2;
+$secondary-color: #50c878;
+$accent-color: #ff6b6b;
+$text-color: #333;
+$light-text: #666;
+$white: #ffffff;
+$dark-bg: #1a1a1a;
+$light-bg: #f8f9fa;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+  transition: $property $duration $timing;
+}
+
+@mixin button-style($bg-color: $primary-color, $text-color: $white) {
+  background: $bg-color;
+  color: $text-color;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  @include transition();
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba($bg-color, 0.3);
+  }
+}
+
+// Reset and Base Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  color: $text-color;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+
+
+// Navigation Styles
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba($white, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  padding: 20px 0;
+  @include transition(padding);
+
+  &.scrolled {
+    padding: 10px 0;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-logo h2 {
+    color: $primary-color;
+    font-size: 1.8rem;
+    @include transition();
+
+    .scrolled & {
+      font-size: 1.5rem;
+    }
+  }
+
+  .nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+
+    .nav-link {
+      text-decoration: none;
+      color: $text-color;
+      font-weight: 500;
+      position: relative;
+      @include transition();
+
+      &.active {
+        color: $primary-color;
+
+        &::after {
+          width: 100%;
+        }
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: $primary-color;
+        @include transition(width);
+      }
+
+      &:hover {
+        color: $primary-color;
+
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+
+
+}
+
+  // Hamburger Menu Styles
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 1001;
+
+  .bar {
+    width: 25px;
+    height: 3px;
+    background-color: $text-color;
+    margin: 3px 0;
+    @include transition();
+    border-radius: 2px;
+  }
+
+  &.active {
+    .bar:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .bar:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
+  }
+}
+
+
+
+
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+  
+  .nav-menu {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    flex-direction: column;
+    background-color: rgba($white, 0.98);
+    backdrop-filter: blur(10px);
+    width: 100%;
+    text-align: center;
+    @include transition();
+    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+    padding-top: 80px;
+    height: 100vh;
+    z-index: 1000;
+
+    &.active {
+      left: 0;
+    }
+
+    li {
+      margin: 20px 0;
+    }
+
+    .nav-link {
+      font-size: 1.2rem;
+      font-weight: 600;
+      padding: 10px 0;
+      display: block;
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .section {
+    padding: 60px 0;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+
+    &.prev-btn {
+      left: 10px;
+    }
+
+    &.next-btn {
+      right: 10px;
+    }
+  }
+}
+
+
