@@ -519,10 +519,6 @@ body {
 
   }
 }
-
-
-
-
 // imageModal modal
 
 
@@ -625,6 +621,51 @@ body {
 
 }
     
+// Contact Section
+.contact-section {
+  background: $primary-color;
+  color: $white;
+
+  .section-title {
+    color: $white;
+
+    &::after {
+      background: $white;
+    }
+  }
+
+  .contact-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contact-info {
+    margin-bottom: 40px;
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+
+      i {
+        width: 20px;
+        text-align: center;
+      }
+    }
+  }
+
+  .contact-button {
+    @include button-style($white, $primary-color);
+    font-size: 1.1rem;
+    padding: 15px 30px;
+  }
+}
+
+
 
 // Modal Styles
 .modal {
